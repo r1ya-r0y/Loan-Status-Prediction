@@ -1,0 +1,28 @@
+
+# Define the tuple with the first element as a string
+input_data = ('LP001024','Male','Yes','2','Graduate','No','3200','700','70','360','1','Urban','Y')
+
+# Convert the tuple to a list excluding the first and last elements
+loan_test_list = list(input_data)[1:-1]
+
+# Define the columns
+columns = ['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'ApplicantIncome', 
+           'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term', 'Credit_History', 'Property_Area']
+
+# Create a DataFrame
+df = pd.DataFrame([loan_test_list], columns=columns)
+
+# Replace values in the DataFrame
+df.replace({"Loan_Status": {'N': 0, 'Y': 1}}, inplace=True)
+df.replace({'Married': {'No': 0, 'Yes': 1}, 'Gender': {'Male': 1, 'Female': 0}, 
+            'Self_Employed': {'No': 0, 'Yes': 1}, 'Property_Area': {'Rural': 0, 'Semiurban': 1, 'Urban': 2}, 
+            'Education': {'Graduate': 1, 'Not Graduate': 0}}, inplace=True)
+
+#Using classifer to predict
+prediction = classifier.predict(input_data_reshape)
+
+print("Loan Status")
+if (prediction[0]=="R"):
+  print("No")
+else:
+  print("Yes")
